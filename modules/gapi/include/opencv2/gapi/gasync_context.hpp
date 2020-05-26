@@ -15,6 +15,8 @@
 
 #include <opencv2/gapi/own/exports.hpp>
 
+#include <atomic>
+
 namespace cv {
 namespace gapi{
 namespace wip {

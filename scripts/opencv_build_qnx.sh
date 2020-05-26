@@ -23,11 +23,15 @@ rm -rf build
 mkdir build
 cd build
 
-cmake -G "Unix Makefiles" ..                                                             \
- -DCMAKE_PREFIX_PATH:PATH=${LDK_QNX_INSTALL_FOLDER}                                      \
- -DCMAKE_INSTALL_PREFIX:PATH=${LDK_QNX_INSTALL_FOLDER}                                   \
- -DCMAKE_BUILD_TYPE="$1"                                                                 \
- -DCMAKE_TOOLCHAIN_FILE="$2"                                                             \
- -DBUILD_TESTING=OFF # off until I figure out what's up with capnp_tool and some of the message generation that happens with testing on
+cmake -G "Unix Makefiles" ..                           \
+ -DCMAKE_PREFIX_PATH:PATH=${LDK_QNX_INSTALL_FOLDER}    \
+ -DCMAKE_INSTALL_PREFIX:PATH=${LDK_QNX_INSTALL_FOLDER} \
+ -DCMAKE_BUILD_TYPE="$1"                               \
+ -DCMAKE_TOOLCHAIN_FILE="$2"                           \
+ -DBUILD_JAVA=OFF                                      \
+ -DWITH_CUDA=OFF                                       \
+ -DWITH_PNG=OFF
+
+# Note to future me: things like WITH_CUDA and HAVE_TBB should be set in a toolchain file
 
 cmake --build . --target install -- -j "${LUMPDK_NPROC:-$(($(nproc) + 2))}"
